@@ -1,5 +1,7 @@
 #include "include.h"
 #include "Base.h"
+#include "map.h"
+#undef main
 
 Base g_background;
 
@@ -29,12 +31,12 @@ bool InitData() {
 			if (!(IMG_Init(imgFlags) && imgFlags))
 				success = false;
 		}
-	}
+	} 
 	return success;
 }
 
 bool LoadBackground() {
-	bool ret = g_background.LoadImg("ZOMBIE TSUNAMI//Background.png", g_screen);
+	bool ret = g_background.LoadImg("ZOMBIE TSUNAMI/Background.png", g_screen);
 	if (ret == false)
 	return false;
 	return true;
@@ -60,6 +62,11 @@ int main(int argc, char* argv[]) {
 	if (LoadBackground() == false) {
 		return -1;
 	}
+
+	GameMap game_map;
+	game_map.LoadMap("Map/map01.dat");
+	game_map.LoadTiles(g_screen);
+
 	bool is_quit = false;
 	while (!is_quit) {
 		while (SDL_PollEvent(&g_event) != 0) {
@@ -72,6 +79,7 @@ int main(int argc, char* argv[]) {
 		SDL_RenderClear(g_screen);
 
 		g_background.Render(g_screen, NULL);
+		game_map.DrawMap(g_screen);
 
 		SDL_RenderPresent(g_screen);
 	}
