@@ -136,11 +136,15 @@
     <ClCompile Include="MAIN.cpp" />
     <ClCompile Include="include.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Time-fps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
     <ClInclude Include="include.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Time-fps.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

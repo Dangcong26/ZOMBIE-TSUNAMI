@@ -1,6 +1,8 @@
 #include "include.h"
 #include "Base.h"
 #include "map.h"
+#include "Player.h"
+#include "Time-fps.h"
 #undef main
 
 Base g_background;
@@ -13,10 +15,10 @@ bool InitData() {
 	}
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
-	g_window = SDL_CreateWindow("ZOMBIE TSUNAMI", 
-		SDL_WINDOWPOS_UNDEFINED, 
-		SDL_WINDOWPOS_UNDEFINED, 
-		SCREEN_WIDTH, SCREEN_HEIGHT, 
+	g_window = SDL_CreateWindow("ZOMBIE TSUNAMI",
+		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED,
+		SCREEN_WIDTH, SCREEN_HEIGHT,
 		SDL_WINDOW_SHOWN);
 
 	if (g_window == NULL) {
@@ -31,14 +33,14 @@ bool InitData() {
 			if (!(IMG_Init(imgFlags) && imgFlags))
 				success = false;
 		}
-	} 
+	}
 	return success;
 }
 
 bool LoadBackground() {
-	bool ret = g_background.LoadImg("ZOMBIE TSUNAMI/Background.png", g_screen);
+	bool ret = g_background.LoadImg("ZOMBIE TSUNAMI/Background1.png", g_screen);
 	if (ret == false)
-	return false;
+		return false;
 	return true;
 }
 
@@ -56,6 +58,9 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
+
+	Time fps_time;
+
 	if (InitData() == false) {
 		return -1;
 	}
@@ -64,15 +69,23 @@ int main(int argc, char* argv[]) {
 	}
 
 	GameMap game_map;
-	game_map.LoadMap("Map/map01.dat");
+	game_map.LoadMap("map good/map01.dat");
 	game_map.LoadTiles(g_screen);
 
+	Player p_player;
+	p_player.LoadImg("Player//right.png", g_screen);
+	p_player.set_clips();
+
 	bool is_quit = false;
+
 	while (!is_quit) {
+        fps_time.start();
 		while (SDL_PollEvent(&g_event) != 0) {
 			if (g_event.type == SDL_QUIT) {
 				is_quit = true;
 			}
+
+			p_player.HandleInputAction(g_event, g_screen);
 		}
 
 		SDL_SetRenderDrawColor(g_screen, 255, 255, 255, 255);
@@ -80,8 +93,26 @@ int main(int argc, char* argv[]) {
 
 		g_background.Render(g_screen, NULL);
 		game_map.DrawMap(g_screen);
+		Map map_data = game_map.getMap();
+		
+		p_player.SetMapXY(map_data.start_x_, map_data.start_y_);
+		p_player.DoPlayer(map_data);
+		p_player.Show(g_screen);
+
+		game_map.SetMap(map_data);
+		game_map.DrawMap(g_screen);
 
 		SDL_RenderPresent(g_screen);
+
+		int real_imp_time = fps_time.get_ticks();
+		int time_one_frame = 1000 / FRAME_PER_SECOND; // ms
+
+		if (real_imp_time < time_one_frame) {
+			int delay_time = time_one_frame - real_imp_time;
+			if (delay_time >= 0)
+				SDL_Delay(delay_time);
+		}
+
 	}
 
 	close();
