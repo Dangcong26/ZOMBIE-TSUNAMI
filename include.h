@@ -1,14 +1,16 @@
 #ifndef INCLUDE_H_
 #define INCLUDE_H_
 
+#include<iostream>
 #include <windows.h>
 #include <string>
+#include <vector>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include <fstream>
-#include <vector>
+
 
 using namespace std;
  
@@ -43,8 +45,8 @@ struct Input{
 };
 
 struct Map{
-	long long start_x_;
-	long long start_y_;
+	int start_x_;
+	int start_y_;
 
 	int max_x_;
 	int max_y_;
@@ -52,5 +54,9 @@ struct Map{
 	int tile[MAX_MAP_Y][MAX_MAP_X];
 	
 };
+
+namespace SDLCommonFunc {
+	bool CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2);
+}
 
 #endif

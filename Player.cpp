@@ -23,7 +23,7 @@ Player::~Player() {
 
 }
 
-bool Player::LoadImg(std::string path, SDL_Renderer* screen) {
+bool Player::LoadImg(string path, SDL_Renderer* screen) {
 	bool ret = Base::LoadImg(path, screen);
 	
 	if (ret == true) {
@@ -31,6 +31,16 @@ bool Player::LoadImg(std::string path, SDL_Renderer* screen) {
 		height_frame_ = rect_.h;
 	}
 	return ret;
+}
+
+SDL_Rect Player::GetRectFrame() {
+	SDL_Rect rect;
+	rect.x = rect_.x;
+	rect.y = rect_.y;
+	rect.w = width_frame_;
+	rect.h = height_frame_;
+
+	return rect;
 }
 
 void Player::set_clips() {
@@ -240,8 +250,8 @@ void Player::CheckToMap(Map& map_data) {
 			int val2 = map_data.tile[y2][x1];
 
 			if (val1 == STATE_BRAIN || val2 == STATE_BRAIN) {
-				map_data.tile[y1][x2] = 0;
-				map_data.tile[y2][x2] = 0;
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y2][x1] = 0;
 				IncreateBrain();
 			}
 			else {
@@ -282,25 +292,18 @@ void Player::CheckToMap(Map& map_data) {
 					on_ground_ = true;
 				}
 			}
-
-			if (map_data.tile[y2][x1] != BLANK_TILE || map_data.tile[y2][x2] != BLANK_TILE) {
-				y_pos_ = y2 * TILE_SIZE;
-				y_pos_ -= height_frame_ + 1;
-				y_val_ = 0;
-				on_ground_ = true;
-			}
 		}
 		else if (y_val_ < 0) {
-			int val1 = map_data.tile[y2][x1];
-			int val2 = map_data.tile[y2][x2];
+			int val1 = map_data.tile[y1][x1];
+			int val2 = map_data.tile[y1][x2];
 
-			if (val1 = STATE_BRAIN || val2 == STATE_BRAIN) {
-				map_data.tile[y2][x1] = 0;
-				map_data.tile[y2][x2] = 0;
+			if (val1 == STATE_BRAIN || val2 == STATE_BRAIN) {
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y1][x2] = 0;
 				IncreateBrain();
 			}
 			else {
-				if (map_data.tile[y1][x1] != BLANK_TILE || map_data.tile[y1][x2] != BLANK_TILE) {
+				if (val1 != BLANK_TILE || val2 != BLANK_TILE) {
 					y_pos_ = (y1 + 1) * TILE_SIZE;
 					y_val_ = 0;
 				}
@@ -319,9 +322,10 @@ void Player::CheckToMap(Map& map_data) {
 	}
 
 	if (y_pos_ > map_data.max_y_) {
-		SDL_Delay(500);
-		SDL_Quit();
-		exit(0);
+		if (MessageBox(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
+			SDL_Delay(500);
+			SDL_Quit();
+		}
 	}
 }
 

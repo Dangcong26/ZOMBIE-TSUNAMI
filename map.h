@@ -15,8 +15,8 @@ public:
 
 class GameMap {
 public:
-	//GameMap(){;};
-	//~GameMap(){;};
+	//GameMap();
+	//~GameMap();
 
 	void LoadMap(const char* name);
 	void LoadTiles(SDL_Renderer* screen);

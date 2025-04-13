@@ -7,7 +7,7 @@
 #define GRAVITY_SPEED 0.8
 #define MAX_FAIL_SPEED 10
 #define PLAYER_SPEED 8
-#define PLAYER_JUMP_VAL 15
+#define PLAYER_JUMP_VAL 20
 
 class Player : public Base {
 public:
@@ -33,6 +33,7 @@ public:
 	void CentreEntityOnMap(Map& map_data);
 	void IncreateBrain();
 
+	SDL_Rect GetRectFrame();
 private:
 	float x_val_;
 	float y_val_;

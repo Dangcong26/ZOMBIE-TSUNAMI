@@ -133,18 +133,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="MAIN.cpp" />
     <ClCompile Include="include.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Threats.cpp" />
     <ClCompile Include="Time-fps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="include.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Threats.h" />
     <ClInclude Include="Time-fps.h" />
+    <ClInclude Include="Explosion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

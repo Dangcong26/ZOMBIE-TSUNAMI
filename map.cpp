@@ -2,6 +2,7 @@
 #include "Base.h"
 #include "map.h"
 
+
 void GameMap::LoadMap(const char* name) {
 	FILE* fp = NULL;
 	fopen_s(&fp, name, "rb");
@@ -29,9 +30,12 @@ void GameMap::LoadMap(const char* name) {
 	game_map_.max_y_ = (game_map_.max_y_ + 1) * TILE_SIZE;
 
 	game_map_.start_x_ = 0;
-	game_map_.start_y_ = 0;
+	game_map_.start_y_ = (game_map_.max_y_ - SCREEN_HEIGHT);
 
-	//game_map_.file_name_ = name;
+	if (game_map_.start_y_ < 0) {
+		game_map_.start_y_ = 0; 
+	}
+
 	fclose(fp);
 }
 
@@ -40,7 +44,7 @@ void GameMap::LoadTiles(SDL_Renderer* screen) {
 	FILE* fp = NULL;
 
 	for (int i = 0; i < MAX_TILES; i++) {
-		sprintf_s(file_img, "map good/%d.png", i);
+		sprintf_s(file_img, "gamemap/%d.png", i);
 
 		fopen_s(&fp, file_img, "rb");
 		if (fp == NULL) {
