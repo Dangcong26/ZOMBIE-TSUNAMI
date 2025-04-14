@@ -35,6 +35,7 @@ const int COLOR_KEY_B = 180;
 #define MAX_MAP_Y 10
 
 #define STATE_BRAIN 4
+#define STATE_BOOM 5
 
 struct Input{
 	int left_;

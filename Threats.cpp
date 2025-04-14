@@ -17,6 +17,8 @@ Threats::Threats() {
 	animation_b_ = 0;
 	input_type_.left_ = 1;
 	type_move_ = STATIC_THREAT;
+
+	bullet_cooldown_ = 0;
 }
 
 Threats::~Threats() {
@@ -136,7 +138,7 @@ void Threats::CheckToMap(Map& gMap) {
 			int val1 = gMap.tile[y1][x2];
 			int val2 = gMap.tile[y2][x2];
 
-			if ((val1 != BLANK_TILE && val1 != STATE_BRAIN) || (val2 != BLANK_TILE && val2 != STATE_BRAIN)) {
+			if ((val1 != BLANK_TILE && val1 != STATE_BRAIN && val1 != STATE_BOOM) || (val2 != BLANK_TILE && val2 != STATE_BRAIN && val2 != STATE_BOOM)) {
 				x_pos_ = x2 * TILE_SIZE;
 				x_pos_ -= width_frame_ + 1;
 				x_val_ = 0;
@@ -148,7 +150,7 @@ void Threats::CheckToMap(Map& gMap) {
 			int val1 = gMap.tile[y1][x1];
 			int val2 = gMap.tile[y2][x1];
 
-			if ((val1 != BLANK_TILE && val1 != STATE_BRAIN) || (val2 != BLANK_TILE && val2 != STATE_BRAIN)) {
+			if ((val1 != BLANK_TILE && val1 != STATE_BRAIN && val1 != STATE_BOOM) || (val2 != BLANK_TILE && val2 != STATE_BRAIN && val2 != STATE_BOOM)) {
 				x_pos_ = (x1 + 1) * TILE_SIZE;
 				x_val_ = 0;
 			}
@@ -170,7 +172,7 @@ void Threats::CheckToMap(Map& gMap) {
 			int val1 = gMap.tile[y2][x1];
 			int val2 = gMap.tile[y2][x2];
 
-			if ((val1 != BLANK_TILE && val1 != STATE_BRAIN) || (val2 != BLANK_TILE && val2 != STATE_BRAIN)) {
+			if ((val1 != BLANK_TILE && val1 != STATE_BRAIN && val1 != STATE_BOOM) || (val2 != BLANK_TILE && val2 != STATE_BRAIN && val2 != STATE_BOOM)) {
 				y_pos_ = y2 * TILE_SIZE;
 				y_pos_ -= (height_frame_ + 1);
 				y_val_ = 0;
@@ -182,7 +184,7 @@ void Threats::CheckToMap(Map& gMap) {
 			int val1 = gMap.tile[y1][x1];
 			int val2 = gMap.tile[y1][x2];
 
-			if ((val1 != BLANK_TILE && val1 != STATE_BRAIN) || (val2 != BLANK_TILE && val2 != STATE_BRAIN)) {
+			if ((val1 != BLANK_TILE && val1 != STATE_BRAIN && val1 != STATE_BOOM) || (val2 != BLANK_TILE && val2 != STATE_BRAIN && val2 != STATE_BOOM)) {
 				y_pos_ = (y1 + 1) * TILE_SIZE;
 				y_val_ = 0;
 			}
@@ -234,18 +236,19 @@ void Threats::InitBullet(Bullet* p_bullet, SDL_Renderer* screen) {
 		p_bullet->LoadImgBullet(screen);
 		p_bullet->set_is_move(true);
 		p_bullet->set_bullet_dir_(Bullet::DIR_LEFT);
-		p_bullet->SetRect(x_pos_ - map_x_ + 5, y_pos_ - map_y_ + 10);
-		p_bullet->set_x_val(10);
+		p_bullet->SetRect(x_pos_ - map_x_ - x_val_ + 5, y_pos_ - map_y_ + 10);
+		p_bullet->set_x_val(5);
 		bullet_list_.push_back(p_bullet);
 	}
 }
 
 void Threats::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit) {
+	bool has_active_bullet = false;
 	for (int i = 0; i < (int)bullet_list_.size(); i++) {
 		Bullet* p_bullet = bullet_list_.at(i);
 		if (p_bullet != NULL) {
 			if (p_bullet->get_is_move()) {
-				int bullet_distance = x_pos_ - map_x_ + width_frame_ - p_bullet->GetRect().x;
+				int bullet_distance = x_pos_ - map_x_ - x_val_ + width_frame_ - p_bullet->GetRect().x;
 				if (bullet_distance <= 320 && bullet_distance > 0) {
 					p_bullet->HandleMove(x_limit, y_limit);
 					p_bullet->Render(screen);
@@ -259,6 +262,23 @@ void Threats::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_
 				p_bullet->SetRect(x_pos_ - map_x_ + 5, y_pos_ - map_y_ + 10);
 			}
 		}
+	}
+	if (bullet_cooldown_ > 0) {
+		bullet_cooldown_--;
+	}
+	if (!has_active_bullet && bullet_cooldown_ <= 0) {
+		for (int i = 0; i < (int)bullet_list_.size(); i++) {
+			Bullet* p_bullet = bullet_list_.at(i);
+			if (p_bullet) {
+				delete p_bullet;
+				p_bullet = NULL;
+			}
+		}
+		bullet_list_.clear(); 
+
+		Bullet* new_bullet = new Bullet();
+		InitBullet(new_bullet, screen); 
+		bullet_cooldown_ = 60; 
 	}
 }
 

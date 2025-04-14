@@ -6,9 +6,11 @@
 #include "Threats.h"
 #include "Menu.h"
 #include "Explosion.h"
+#include "Text.h"
 #undef main
 
 Base g_background;
+TTF_Font* font_brain;
 
 bool InitData() {
 	bool success = true;
@@ -36,6 +38,11 @@ bool InitData() {
 			if (!(IMG_Init(imgFlags) && imgFlags))
 				success = false;
 		}
+
+		if (TTF_Init() == -1) {
+			success = false;
+		}
+		font_brain = TTF_OpenFont("font.ttf", 15);
 	}
 	return success;
 }
@@ -62,8 +69,8 @@ void close() {
 
 vector<Threats*> MakeThreatsList() {
 	vector<Threats*> list_threats;
-	/*Threats* dynamic_threats = new Threats[1];
-	for (int i = 0; i < 1 ;i ++) {
+	//Threats* dynamic_threats = new Threats[1];
+	/*for (int i = 0; i < 1; i++) {
 		Threats* p_threat = (dynamic_threats + i);
 
 		if (p_threat != NULL) {
@@ -91,7 +98,7 @@ vector<Threats*> MakeThreatsList() {
 		Threats* p_threat = (threats_objs + i);
 		
 		if (p_threat != NULL) {
-			p_threat->LoadImg("stone.png", g_screen);
+			p_threat->LoadImg("Threats/threat_left.png", g_screen);
 			p_threat->set_clips();
 			p_threat->set_x_pos(1200 * i + 400);
 			p_threat->set_y_pos(200);
@@ -125,8 +132,14 @@ int main(int argc, char* argv[]) {
 	Player p_player;
 	p_player.LoadImg("Player//right.png", g_screen);
 	p_player.set_clips();
+	p_player.InitExplosion(g_screen);  
 
 	vector<Threats*> threats_list = MakeThreatsList();
+
+	Explosion exp_threat;
+	bool tRet = exp_threat.LoadImg("Threats/exp3.png", g_screen);
+	if (!tRet) return -1;
+	exp_threat.set_clip();
 
 	bool is_quit = false;
 
@@ -150,9 +163,13 @@ int main(int argc, char* argv[]) {
 		p_player.SetMapXY(map_data.start_x_, map_data.start_y_);
 		p_player.DoPlayer(map_data);
 		p_player.Show(g_screen);
-
+		p_player.HandleExplosion(g_screen);
+	
 		game_map.SetMap(map_data);
 		game_map.DrawMap(g_screen);
+
+		int frame_exp_width = exp_threat.get_frame_width();
+		int frame_exp_height = exp_threat.get_frame_heigh();
 
 		for (int i = 0; i < (int)threats_list.size(); i++) {
 			Threats* p_threat = threats_list.at(i);
@@ -160,7 +177,9 @@ int main(int argc, char* argv[]) {
 				p_threat->SetMapXY(map_data.start_x_, map_data.start_y_);
 				p_threat->ImpMoveType(g_screen);
 				p_threat->DoPlayer(map_data);
-				p_threat->MakeBullet(g_screen, SCREEN_WIDTH, SCREEN_HEIGHT);
+				if (p_player.Get_Brain() != 0) {
+					p_threat->MakeBullet(g_screen, SCREEN_WIDTH, SCREEN_HEIGHT);
+				}
 				p_threat->Show(g_screen);
 
 				SDL_Rect rect_player = p_player.GetRectFrame();
@@ -169,17 +188,26 @@ int main(int argc, char* argv[]) {
 				for (int jj = 0; jj < (int)tBullet_list.size(); jj++) {
 					Bullet* pt_bullet = tBullet_list.at(jj);
 					if (pt_bullet) {
+
 						bCol1 = SDLCommonFunc::CheckCollision(pt_bullet->GetRect(), rect_player);
-						if (bCol1) {
+						if (bCol1 && p_player.Get_Brain() != 0) {
+							for (int ex = 0; ex < NUM_FRAME_EXP; ex++) {
+								int x_pos = pt_bullet->GetRect().x - frame_exp_width * 0.5;
+								int y_pos = pt_bullet->GetRect().y - frame_exp_height * 0.5;
+
+								exp_threat.set_frame(ex);
+								exp_threat.SetRect(x_pos, y_pos);
+								exp_threat.Show(g_screen);
+							}
 							p_threat->RemoveBullet(jj);
+							p_player.DecreaseBrain();
 							break;
 						}
 					}
 				}
 
-				if (bCol1) {
+				if (p_player.Get_Brain() == 0) {
 					if (MessageBox(NULL, L"GAME OVER", L"Info" , MB_OK | MB_ICONSTOP) == IDOK) {
-						p_threat->Free();
 						close();
 						SDL_Quit();
 						return 0;
@@ -192,9 +220,11 @@ int main(int argc, char* argv[]) {
 				if (bCol2) {
 					p_threat->Free();
 					threats_list.erase(threats_list.begin() + i);
+					p_player.IncreateBrain();
 				}
 			}
 		}
+
 
 		SDL_RenderPresent(g_screen);
 

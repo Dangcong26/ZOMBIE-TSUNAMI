@@ -103,6 +103,8 @@ private:
 	Input input_type_;
 
 	vector<Bullet*> bullet_list_;
+
+	int bullet_cooldown_;
 };
 
 #endif

@@ -16,7 +16,9 @@ Player::Player() {
 	on_ground_ = false;
 	map_x_ = 0;
 	map_y_ = 0;
-	brain = 0;
+	brain = 5;
+	is_exploding_ = false; 
+	explosion_frame_ = 0;
 }
 
 Player::~Player() {
@@ -33,6 +35,14 @@ bool Player::LoadImg(string path, SDL_Renderer* screen) {
 	return ret;
 }
 
+void Player::InitExplosion(SDL_Renderer* screen) {
+	// Khởi tạo đối tượng vụ nổ từ Explosion.h
+	bool ret = explosion_.LoadImg("Threats/exp3.png", screen); // Đường dẫn tới hình ảnh vụ nổ
+	if (ret) {
+		explosion_.set_clip(); // Thiết lập các khung hình của vụ nổ
+	}
+}
+
 SDL_Rect Player::GetRectFrame() {
 	SDL_Rect rect;
 	rect.x = rect_.x;
@@ -45,58 +55,15 @@ SDL_Rect Player::GetRectFrame() {
 
 void Player::set_clips() {
 	if (width_frame_ > 0 && height_frame_ > 0) {
-		frame_clip_[0].x = 0;
-		frame_clip_[0].y = 0;
-		frame_clip_[0].w = width_frame_;
-		frame_clip_[0].h = height_frame_;
-		
-		frame_clip_[1].x = width_frame_;
-		frame_clip_[1].y = 0;
-		frame_clip_[1].w = width_frame_;
-		frame_clip_[1].h = height_frame_;
-
-		frame_clip_[2].x = 2*width_frame_;
-		frame_clip_[2].y = 0;
-		frame_clip_[2].w = width_frame_;
-		frame_clip_[2].h = height_frame_;
-
-		frame_clip_[3].x = 3 * width_frame_;
-		frame_clip_[3].y = 0;
-		frame_clip_[3].w = width_frame_;
-		frame_clip_[3].h = height_frame_;
-
-		frame_clip_[4].x = 4 * width_frame_;
-		frame_clip_[4].y = 0;
-		frame_clip_[4].w = width_frame_;
-		frame_clip_[4].h = height_frame_;
-
-		frame_clip_[5].x = 5 * width_frame_;
-		frame_clip_[5].y = 0;
-		frame_clip_[5].w = width_frame_;
-		frame_clip_[5].h = height_frame_;
-
-		frame_clip_[6].x = 6 * width_frame_;
-		frame_clip_[6].y = 0;
-		frame_clip_[6].w = width_frame_;
-		frame_clip_[6].h = height_frame_;
-
-		frame_clip_[7].x = 7 * width_frame_;
-		frame_clip_[7].y = 0;
-		frame_clip_[7].w = width_frame_;
-		frame_clip_[7].h = height_frame_;
-
-		frame_clip_[8].x = 8 * width_frame_;
-		frame_clip_[8].y = 0;
-		frame_clip_[8].w = width_frame_;
-		frame_clip_[8].h = height_frame_;
-
-		frame_clip_[9].x = 9 * width_frame_;
-		frame_clip_[9].y = 0;
-		frame_clip_[9].w = width_frame_;
-		frame_clip_[9].h = height_frame_;
-
+		for (int i = 0; i < 8; i++) {
+			frame_clip_[i].x = i * width_frame_;
+			frame_clip_[i].y = 0;
+			frame_clip_[i].w = width_frame_;
+			frame_clip_[i].h = height_frame_;
+		}
 	}
 }
+
 
 void Player::Show(SDL_Renderer* des) {
 	if (on_ground_ == true) {
@@ -236,6 +203,14 @@ void Player::CheckToMap(Map& map_data) {
 				map_data.tile[y1][x2] = 0;
 				map_data.tile[y2][x2] = 0;
 				IncreateBrain();
+			}else if (val1 == STATE_BOOM || val2 == STATE_BOOM) {
+				map_data.tile[y1][x2] = 0;
+				map_data.tile[y2][x2] = 0;
+				is_exploding_ = true;
+				explosion_frame_ = 0;
+				explosion_rect_.x = x1 * TILE_SIZE - map_data.start_x_;
+				explosion_rect_.y = y1 * TILE_SIZE - map_data.start_y_;
+				DecreaseBrain();
 			}
 			else {
 				if (val1 != BLANK_TILE || val2 != BLANK_TILE) {
@@ -253,6 +228,14 @@ void Player::CheckToMap(Map& map_data) {
 				map_data.tile[y1][x1] = 0;
 				map_data.tile[y2][x1] = 0;
 				IncreateBrain();
+			}else if (val1 == STATE_BOOM || val2 == STATE_BOOM) {
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y2][x1] = 0;
+				is_exploding_ = true;
+				explosion_frame_ = 0;
+				explosion_rect_.x = x1 * TILE_SIZE - map_data.start_x_;
+				explosion_rect_.y = y1 * TILE_SIZE - map_data.start_y_;
+				DecreaseBrain();
 			}
 			else {
 				if (val1 != BLANK_TILE || val2 != BLANK_TILE) {
@@ -283,6 +266,14 @@ void Player::CheckToMap(Map& map_data) {
 				map_data.tile[y2][x1] = 0;
 				map_data.tile[y2][x2] = 0;
 				IncreateBrain();
+			}else if (val1 == STATE_BOOM || val2 == STATE_BOOM) {
+				map_data.tile[y2][x1] = 0;
+				map_data.tile[y2][x2] = 0;
+				is_exploding_ = true;
+				explosion_frame_ = 0;
+				explosion_rect_.x = x1 * TILE_SIZE - map_data.start_x_;
+				explosion_rect_.y = y1 * TILE_SIZE - map_data.start_y_;
+				DecreaseBrain();
 			}
 			else {
 				if (val1 != BLANK_TILE || val2 != BLANK_TILE) {
@@ -301,6 +292,14 @@ void Player::CheckToMap(Map& map_data) {
 				map_data.tile[y1][x1] = 0;
 				map_data.tile[y1][x2] = 0;
 				IncreateBrain();
+			}else if (val1 == STATE_BOOM || val2 == STATE_BOOM) {
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y1][x2] = 0;
+				is_exploding_ = true;
+				explosion_frame_ = 0;
+				explosion_rect_.x = x1 * TILE_SIZE - map_data.start_x_;
+				explosion_rect_.y = y1 * TILE_SIZE - map_data.start_y_;
+				DecreaseBrain();
 			}
 			else {
 				if (val1 != BLANK_TILE || val2 != BLANK_TILE) {
@@ -329,6 +328,21 @@ void Player::CheckToMap(Map& map_data) {
 	}
 }
 
+void Player::HandleExplosion(SDL_Renderer* screen) {
+	if (is_exploding_) {
+		explosion_.set_frame(explosion_frame_);
+		explosion_.SetRect(explosion_rect_.x, explosion_rect_.y);
+		explosion_.Show(screen);
+
+		explosion_frame_++;
+
+		if (explosion_frame_ >= NUM_FRAME_EXP) { 
+			is_exploding_ = false;
+			explosion_frame_ = 0;
+		}
+	}
+}
+
 void Player::CentreEntityOnMap(Map& map_data) {
 	map_data.start_x_ = x_pos_ - (SCREEN_WIDTH / 2);
 	if (map_data.start_x_ < 0) {
@@ -349,4 +363,7 @@ void Player::CentreEntityOnMap(Map& map_data) {
 
 void Player::IncreateBrain() {
 	brain++;
+}
+void Player::DecreaseBrain() {
+	brain--;
 }

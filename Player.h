@@ -3,6 +3,7 @@
 
 #include "include.h"
 #include "Base.h"
+#include "Explosion.h"
 
 #define GRAVITY_SPEED 0.8
 #define MAX_FAIL_SPEED 10
@@ -32,8 +33,16 @@ public:
 	};
 	void CentreEntityOnMap(Map& map_data);
 	void IncreateBrain();
+	void DecreaseBrain();
+	int Get_Brain() const {
+		return brain;
+	}
 
 	SDL_Rect GetRectFrame();
+
+	void InitExplosion(SDL_Renderer* screen); // Khởi tạo vụ nổ
+	void HandleExplosion(SDL_Renderer* screen); // Xử lý và hiển thị vụ nổ
+	bool IsExploding() const { return is_exploding_; } // Kiểm tra trạng thái vụ nổ
 private:
 	float x_val_;
 	float y_val_;
@@ -54,6 +63,11 @@ private:
 	int map_y_;
 
 	int brain;
+
+	Explosion explosion_; 
+	bool is_exploding_; 
+	int explosion_frame_; 
+	SDL_Rect explosion_rect_;
 };
 
 #endif
