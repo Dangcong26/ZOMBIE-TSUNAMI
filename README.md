@@ -1,7 +1,7 @@
 ZOMBIE TSUNAMI
 
 
-Giới thiệuthiệu :
+Giới thiệu :
 
     - Zombie Tsunami là một game 2D được phát triển bằng thư viện SDL2. Người chơi điều khiển một nhân vật zombie để vượt qua các chướng ngại vật, thu thập "brain", và tránh các mối nguy  hiểm như bom và đạn từ kẻ thù. Mục tiêu là sống sót càng lâu càng tốt và thu thập càng nhiều brain càng tốt.
 
@@ -135,8 +135,8 @@ Hướng dẫn cài đặt
 
 Đóng góp
 
- Nếu bạn muốn đóng góp cho dự án: Nếu bạn có ý tưởng hayx liên hệ với mình!
-                                  Chân Thành Cảm ƠnƠn
+ Nếu bạn muốn đóng góp cho dự án: Nếu bạn có ý tưởng hãy liên hệ với mình!
+                                  Chân Thành Cảm Ơn !
 
 
 Tác giả
