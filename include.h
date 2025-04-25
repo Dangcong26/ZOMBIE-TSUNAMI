@@ -1,7 +1,7 @@
 #ifndef INCLUDE_H_
 #define INCLUDE_H_
 
-#include<iostream>
+#include <iostream>
 #include <windows.h>
 #include <string>
 #include <vector>
@@ -10,17 +10,19 @@
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
 
 
 using namespace std;
- 
+
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
- 
+
 // Screen
 const int FRAME_PER_SECOND = 30;
-const int SCREEN_WIDTH = 1280; 
+const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 640;
 const int SCREEN_BPP = 32;
 
@@ -36,8 +38,9 @@ const int COLOR_KEY_B = 180;
 
 #define STATE_BRAIN 4
 #define STATE_BOOM 5
+#define FLYBOX 6
 
-struct Input{
+struct Input {
 	int left_;
 	int right_;
 	int up_;
@@ -45,7 +48,7 @@ struct Input{
 	int jump_;
 };
 
-struct Map{
+struct Map {
 	int start_x_;
 	int start_y_;
 
@@ -53,7 +56,7 @@ struct Map{
 	int max_y_;
 
 	int tile[MAX_MAP_Y][MAX_MAP_X];
-	
+
 };
 
 namespace SDLCommonFunc {

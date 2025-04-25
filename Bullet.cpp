@@ -23,11 +23,10 @@ void Bullet::HandleMove(const int& x_border, const int& y_border) {
 			is_move_ = false;
 		}
 	}
-	
+
 }
 
 bool Bullet::LoadImgBullet(SDL_Renderer* des) {
 	bool ret = LoadImg("Threats/Bullet.png", des);
-		return ret;
+	return ret;
 }
-

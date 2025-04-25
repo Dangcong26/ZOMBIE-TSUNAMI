@@ -1,4 +1,4 @@
-#ifndef THREATS_H_
+﻿#ifndef THREATS_H_
 #define THREATS_H_
 
 #include "include.h"
@@ -21,7 +21,7 @@ public:
 	};
 
 	void set_x_val(const float& xVal) {
-		x_val_ = xVal;
+		x_val_ = xVal + 8;
 	}
 	void set_y_val(const float& yVal) {
 		y_val_ = yVal;

@@ -151,6 +151,7 @@
     <ClInclude Include="map.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Threats.h" />
     <ClInclude Include="Time-fps.h" />

@@ -1,100 +1,114 @@
-﻿//#include "Menu.h"
-//
-//MainMenu::MainMenu() {
-//    is_play_hovered_ = false;
-//    is_quit_hovered_ = false;
-//    state_ = MENU_NONE;
-//}
-//
-//MainMenu::~MainMenu() {
-//    background_.Free();
-//    play_button_normal_.Free();
-//    play_button_hover_.Free();
-//    quit_button_normal_.Free();
-//    quit_button_hover_.Free();
-//}
-//
-//bool MainMenu::Init(SDL_Renderer* screen) {
-//    // Tải background
-//    bool success = background_.LoadImg("ZOMBIE TSUNAMI/menu_background.png", screen);
-//    if (!success) return false;
-//
-//    // Tải sprite cho nút Play
-//    success &= play_button_normal_.LoadImg("ZOMBIE TSUNAMI/play_normal.png", screen);
-//    success &= play_button_hover_.LoadImg("ZOMBIE TSUNAMI/play_hover.png", screen);
-//    if (!success) return false;
-//    play_button_normal_.SetRect(540, 300); // Sử dụng setter
-//    play_button_hover_.SetRect(540, 300);  // Đồng bộ vị trí
-//
-//    // Tải sprite cho nút Quit
-//    success &= quit_button_normal_.LoadImg("ZOMBIE TSUNAMI/quit_normal.png", screen);
-//    success &= quit_button_hover_.LoadImg("ZOMBIE TSUNAMI/quit_hover.png", screen);
-//    if (!success) return false;
-//    quit_button_normal_.SetRect(540, 400); // Sử dụng setter
-//    quit_button_hover_.SetRect(540, 400);  // Đồng bộ vị trí
-//
-//    return true;
-//}
-//
-//void MainMenu::HandleInput(SDL_Event& e) {
-//    if (e.type == SDL_MOUSEMOTION) {
-//        int x, y;
-//        SDL_GetMouseState(&x, &y);
-//
-//        // Kiểm tra hover nút Play
-//        SDL_Rect play_rect = play_button_normal_.GetRect();
-//        is_play_hovered_ = (x >= play_rect.x &&
-//            x <= play_rect.x + play_rect.w &&
-//            y >= play_rect.y &&
-//            y <= play_rect.y + play_rect.h);
-//
-//        // Kiểm tra hover nút Quit
-//        SDL_Rect quit_rect = quit_button_normal_.GetRect();
-//        is_quit_hovered_ = (x >= quit_rect.x &&
-//            x <= quit_rect.x + quit_rect.w &&
-//            y >= quit_rect.y &&
-//            y <= quit_rect.y + quit_rect.h);
-//    }
-//    else if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT) {
-//        int x, y;
-//        SDL_GetMouseState(&x, &y);
-//
-//        // Kiểm tra nhấn nút Play
-//        SDL_Rect play_rect = play_button_normal_.GetRect();
-//        if (x >= play_rect.x &&
-//            x <= play_rect.x + play_rect.w &&
-//            y >= play_rect.y &&
-//            y <= play_rect.y + play_rect.h) {
-//            state_ = MENU_PLAY;
-//        }
-//        // Kiểm tra nhấn nút Quit
-//        SDL_Rect quit_rect = quit_button_normal_.GetRect();
-//        if (x >= quit_rect.x &&
-//            x <= quit_rect.x + quit_rect.w &&
-//            y >= quit_rect.y &&
-//            y <= quit_rect.y + quit_rect.h) {
-//            state_ = MENU_QUIT;
-//        }
-//    }
-//}
-//
-//void MainMenu::Render(SDL_Renderer* screen) {
-//    // Vẽ background
-//    background_.Render(screen, nullptr);
-//
-//    // Vẽ nút Play
-//    if (is_play_hovered_) {
-//        play_button_hover_.Render(screen, nullptr);
-//    }
-//    else {
-//        play_button_normal_.Render(screen, nullptr);
-//    }
-//
-//    // Vẽ nút Quit
-//    if (is_quit_hovered_) {
-//        quit_button_hover_.Render(screen, nullptr);
-//    }
-//    else {
-//        quit_button_normal_.Render(screen, nullptr);
-//    }
-//}
+﻿#include "Menu.h"
+
+Menu::Menu() : selected_item_(0) {
+    selected_color_ = { 255, 0, 0, 255 };
+    normal_color_ = { 255, 255, 255, 255 };
+    font_ = nullptr;
+    memset(item_rects_, 0, sizeof(item_rects_));
+
+    for (int i = 0; i < TOTAL_ITEMS; i++) {
+        menu_items_[i].SetText("");
+    }
+}
+
+Menu::~Menu() {
+    if (font_) {
+        TTF_CloseFont(font_);
+        font_ = nullptr;
+    }
+}
+
+bool Menu::LoadFont(const std::string& font_path, int font_size) {
+    font_ = TTF_OpenFont(font_path.c_str(), font_size);
+    if (font_ == nullptr) {
+        SDL_Log("Failed to load font: %s", TTF_GetError());
+        return false;
+    }
+    return true;
+}
+
+bool Menu::LoadBackground(const std::string& bg_path, SDL_Renderer* screen) {
+    bool success = background_.LoadImg(bg_path.c_str(), screen);
+    if (!success) {
+        SDL_Log("Failed to load menu background: %s", SDL_GetError());
+        return false;
+    }
+    return true;
+}
+
+void Menu::Render(SDL_Renderer* screen) {
+    SDL_SetRenderDrawColor(screen, 0, 0, 0, 255);
+    SDL_RenderClear(screen);
+
+    if (background_.GetObject() != nullptr) {
+        background_.Render(screen, nullptr);
+    }
+    else {
+        SDL_Log("Warning: Menu background not loaded, using black background");
+    }
+
+    if (menu_items_[START_GAME].GetText().empty()) {
+        menu_items_[START_GAME].SetText("START GAME");
+        menu_items_[QUIT].SetText("QUIT");
+    }
+
+    int start_y = (SCREEN_HEIGHT - (TOTAL_ITEMS * 100)) / 2;
+
+    for (int i = 0; i < TOTAL_ITEMS; i++) {
+        if (i == selected_item_) {
+            menu_items_[i].SetColor(selected_color_.r, selected_color_.g, selected_color_.b);
+        }
+        else {
+            menu_items_[i].SetColor(normal_color_.r, normal_color_.g, normal_color_.b);
+        }
+
+        if (!menu_items_[i].LoadFromRenderText(font_, screen)) {
+            SDL_Log("Failed to render menu item %d: %s", i, TTF_GetError());
+            continue;
+        }
+
+        int item_width = menu_items_[i].GetWidth();
+        int item_height = menu_items_[i].GetHeight();
+
+        int x_pos = (SCREEN_WIDTH - item_width) / 2;
+        int y_pos = start_y + (i * 100);
+
+        item_rects_[i] = { x_pos, y_pos, item_width, item_height };
+
+        menu_items_[i].RenderText(screen, x_pos, y_pos, nullptr, 0.0, nullptr, SDL_FLIP_NONE);
+    }
+}
+
+bool Menu::IsMouseClickOnItem(int itemIndex, int mouseX, int mouseY) {
+    return (mouseX >= item_rects_[itemIndex].x &&
+        mouseX <= item_rects_[itemIndex].x + item_rects_[itemIndex].w &&
+        mouseY >= item_rects_[itemIndex].y &&
+        mouseY <= item_rects_[itemIndex].y + item_rects_[itemIndex].h);
+}
+
+void Menu::HandleEvent(SDL_Event& e) {
+    if (e.type == SDL_MOUSEBUTTONDOWN) {
+        if (e.button.button == SDL_BUTTON_LEFT) {
+            int mouseX = e.button.x;
+            int mouseY = e.button.y;
+
+            for (int i = 0; i < TOTAL_ITEMS; i++) {
+                if (IsMouseClickOnItem(i, mouseX, mouseY)) {
+                    selected_item_ = i;
+                    break;
+                }
+            }
+        }
+    }
+    else if (e.type == SDL_MOUSEMOTION) {
+        int mouseX = e.motion.x;
+        int mouseY = e.motion.y;
+
+        for (int i = 0; i < TOTAL_ITEMS; i++) {
+            if (IsMouseClickOnItem(i, mouseX, mouseY)) {
+                selected_item_ = i;
+                break;
+            }
+        }
+    }
+}

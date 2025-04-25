@@ -1,12 +1,12 @@
-#ifndef BULLET_H_
+﻿#ifndef BULLET_H_
 #define BULLET_H_
 
 
 #include "include.h"
 #include "Base.h"
- 
+
 class Bullet : public Base {
-public :
+public:
 	Bullet();
 	~Bullet();
 

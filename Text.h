@@ -21,11 +21,11 @@ public:
 	void SetColor(int type);
 
 	void RenderText(SDL_Renderer* screen,
-		 int xp, int yp, 
-		 SDL_Rect* clip = NULL, 
-		 double angle = 0.0, 
-		 SDL_Point* center = NULL, 
-		 SDL_RendererFlip flip = SDL_FLIP_NONE);
+		int xp, int yp,
+		SDL_Rect* clip ,
+		double angle ,
+		SDL_Point* center ,
+		SDL_RendererFlip flip );
 
 	int GetWidth() const {
 		return width_;
