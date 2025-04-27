@@ -12,11 +12,11 @@
 
 - Điều khiển nhân vật zombie di chuyển (trái, phải) và nhảy (phím Space).
 
-  <img src="ZOMBIE TSUNAMI/PLAYER.jpg" alt="ảnh nhân vật" width="30px">
+  <img src="ZOMBIE-TSUNAMI/PLAYER.jpg" alt="ảnh nhân vật" width="30px">
 
 - Ăn quái và não cùng fly bõ để thu thập thật nhiều não
   
-  <img src="ZOMBIE TSUNAMI/threats.jpg" alt="ảnh nhân vật" width="30px">
+  <img src="ZOMBIE-TSUNAMI/threats.jpg" alt="ảnh nhân vật" width="30px">
 
   <img src="ZOMBIE TSUNAMI/4.png" alt="ảnh nhân vật" width="30px">
 
@@ -26,7 +26,7 @@
   
   <img src="Threats/Bullet.png" alt="đạn" width="30px">
   
-  <img src="ZOMBIE TSUNAMI/5.png" alt="BOOM" width="30px">
+  <img src="ZOMBIE-TSUNAMI/5.png" alt="BOOM" width="30px">
 
 - Hiệu ứng nổ khi va chạm với bom.
 
