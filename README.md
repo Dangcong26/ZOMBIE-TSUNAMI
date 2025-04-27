@@ -12,25 +12,25 @@
 
 - Điều khiển nhân vật zombie di chuyển (trái, phải) và nhảy (phím Space).
 
-  <img src="ZOMBIE TSUNAMI/download.jpg" alt="ảnh nhân vật" width="30px">
+  <img src="ZOMBIE TSUNAMI/download.jpg" alt="ảnh nhân vật" width="60px">
 
 - Ăn quái và não cùng fly bõ để thu thập thật nhiều não
   
-  <img src="ZOMBIE TSUNAMI/download(2).jpg" alt="ảnh nhân vật" width="30px">
+  <img src="ZOMBIE TSUNAMI/download (2).jpg" alt="ảnh nhân vật" width="60px">
 
-  <img src="ZOMBIE TSUNAMI/4.png" alt="ảnh nhân vật" width="30px">
+  <img src="ZOMBIE TSUNAMI/4.png" alt="ảnh nhân vật" width="60px">
 
-  <img src="ZOMBIE TSUNAMI/6.png" alt="ảnh nhân vật" width="30px">
+  <img src="ZOMBIE TSUNAMI/6.png" alt="ảnh nhân vật" width="60px">
 
 - Tránh bom và đạn từ kẻ thù.
   
-  <img src="Threats/Bullet.png" alt="đạn" width="30px">
+  <img src="Threats/Bullet.png" alt="đạn" width="60px">
   
-  <img src="ZOMBIE TSUNAMI/5.png" alt="BOOM" width="30px">
+  <img src="ZOMBIE TSUNAMI/5.png" alt="BOOM" width="60px">
 
 - Hiệu ứng nổ khi va chạm với bom.
 
-  <img src="ZOMBIE TSUNAMI/download(1).jpg" alt="hiệu ứng vụ nổ" width="30px">
+  <img src="ZOMBIE TSUNAMI/download (1).jpg" alt="hiệu ứng vụ nổ" width="60px">
 
 - Menu chính với tùy chọn bắt đầu game hoặc thoát.
 
