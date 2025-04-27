@@ -1,133 +1,147 @@
-ZOMBIE TSUNAMI
+#ZOMBIE TSUNAMI
 
 
-Giới thiệu :
+##Giới thiệu :
 
-    - Zombie Tsunami là một game 2D được phát triển bằng thư viện SDL2. Người chơi điều khiển một nhân vật zombie để vượt qua các chướng ngại vật, thu thập "brain", và tránh các mối nguy  hiểm như bom và đạn từ kẻ thù. Mục tiêu là sống sót càng lâu càng tốt và thu thập càng nhiều brain càng tốt.
+- Zombie Tsunami là một game 2D được phát triển bằng thư viện SDL2. Người chơi điều khiển một nhân vật zombie để vượt qua các chướng ngại vật, thu thập "brain", và tránh các mối nguy  hiểm như bom và đạn từ kẻ thù. Mục tiêu là sống sót càng lâu càng tốt và thu thập càng nhiều brain càng tốt.
 
-    - Dự án này được thực hiện để học hỏi và áp dụng kỹ năng lập trình C++ và sử dụng SDL2 để phát triển game.
-
-
-Tính năng
-
-    - Điều khiển nhân vật zombie di chuyển (trái, phải) và nhảy (phím Space).
-
-        <img src="ZOMBIE TSUNAMI/PLAYER.jpg" alt="ảnh nhân vật" width="30px">
-
-    - Ăn quái và não cùng fly bõ để thu thập thật nhiều não
-
-    - Tránh bom và đạn từ kẻ thù.
-
-    - Hiệu ứng nổ khi va chạm với bom.
-
-    - Menu chính với tùy chọn bắt đầu game hoặc thoát.
-
-    - Âm thanh nền và hiệu ứng âm thanh (nhạc nền, tiếng cắn, tiếng nổ).
+- Dự án này được thực hiện để học hỏi và áp dụng kỹ năng lập trình C++ và sử dụng SDL2 để phát triển game.
 
 
-Mục tiêu:
+##Tính năng :
 
-    - Thu thập "brain" để tăng điểm số.
+- Điều khiển nhân vật zombie di chuyển (trái, phải) và nhảy (phím Space).
 
-    - Tránh bom và đạn từ kẻ thù.
+  <img src="ZOMBIE TSUNAMI/PLAYER.jpg" alt="ảnh nhân vật" width="30px">
 
-    - Nếu số "brain" giảm về 0 hoặc nhân vật rơi khỏi bản đồ, game sẽ kết thúc và quay lại menu.  
+- Ăn quái và não cùng fly bõ để thu thập thật nhiều não
+  
+  <img src="ZOMBIE TSUNAMI/threats.jpg" alt="ảnh nhân vật" width="30px">
 
+  <img src="ZOMBIE TSUNAMI/4.png" alt="ảnh nhân vật" width="30px">
 
-Yêu cầu hệ thống
+  <img src="ZOMBIE TSUNAMI/6.png" alt="ảnh nhân vật" width="30px">
 
-    - Hệ điều hành: Windows (có thể mở rộng sang Linux/Mac nếu cài đặt SDL2 phù hợp).
+- Tránh bom và đạn từ kẻ thù.
+  
+  <img src="Threats/Bullet.png" alt="đạn" width="30px">
+  
+  <img src="ZOMBIE TSUNAMI/5.png" alt="BOOM" width="30px">
 
+- Hiệu ứng nổ khi va chạm với bom.
 
-Thư viện cần thiết:
+  <img src="ZOMBIE TSUNAMI/explosion.jpg" alt="hiệu ứng vụ nổ" width="30px">
 
-    - SDL2
+- Menu chính với tùy chọn bắt đầu game hoặc thoát.
 
-    - SDL2_image
+- Âm thanh nền và hiệu ứng âm thanh (nhạc nền, tiếng cắn, tiếng nổ).
 
-    - SDL2_ttf
-
-    - SDL2_mixer
-
-
-
-Công cụ phát triển:
-
-    - Visual Studio (hoặc bất kỳ IDE nào hỗ trợ C++).
-
-    - MinGW (nếu sử dụng trên Windows với Git Bash).
-
-    - Git (để quản lý mã nguồn).
+    
 
 
-Cấu trúc thư mục
+##Mục tiêu:
 
-    ZOMBIE TSUNAMI/: Chứa hình ảnh nền và tài nguyên hình ảnh khác (Background1.png, menu_background.png).
+  - Thu thập "brain" để tăng điểm số.
 
-    Player/: Chứa hình ảnh của nhân vật (left.png, right.png, jump_left.png, jump_right.png).
+  - Tránh bom và đạn từ kẻ thù.
 
-    Threats/: Chứa hình ảnh của kẻ thù và hiệu ứng nổ (threat_left.png, exp3.png).
+  - Nếu số "brain" giảm về 0 hoặc nhân vật rơi khỏi bản đồ, game sẽ kết thúc và quay lại menu.  
 
-    gamemap/: Chứa file bản đồ (map.dat) và các ô tile (1.png, 2.png, ..., 6.png).
 
-    *.mp3, *.wav: Các file âm thanh (happy.mp3, bite.wav, explosion.wav).
+##Yêu cầu hệ thống
+
+  - Hệ điều hành: Windows (có thể mở rộng sang Linux/Mac nếu cài đặt SDL2 phù hợp).
+
+
+##Thư viện cần thiết:
+
+  - SDL2
+
+  - SDL2_image
+
+  - SDL2_ttf
+
+  - SDL2_mixer
 
 
 
-Danh sách file chính
+##Công cụ phát triển:
 
-    MAIN.cpp: File chính, chứa vòng lặp game và logic chính.
+  - Visual Studio (hoặc bất kỳ IDE nào hỗ trợ C++).
 
-    Player.cpp, Player.h: Quản lý nhân vật người chơi.
+  - MinGW (nếu sử dụng trên Windows với Git Bash).
 
-    Threats.cpp, Threats.h: Quản lý kẻ thù và đạn.
-
-    Menu.cpp, Menu.h: Quản lý menu chính.
-
-    Sound.h: Định nghĩa các biến âm thanh toàn cục.
-
-    gamemap/map.dat: File bản đồ game.
+  - Git (để quản lý mã nguồn).
 
 
-Hướng dẫn cài đặt
+##Cấu trúc thư mục
 
-    1. Cài đặt SDL2 và các thư viện liên quan
+  - ZOMBIE TSUNAMI/: Chứa hình ảnh nền và tài nguyên hình ảnh khác (Background1.png, menu_background.png).
 
-        - Tải và cài đặt SDL2:
+  - Player/: Chứa hình ảnh của nhân vật (left.png, right.png, jump_left.png, jump_right.png).
 
-        - Tải SDL2 từ trang chính thức.
+  - Threats/: Chứa hình ảnh của kẻ thù và hiệu ứng nổ (threat_left.png, exp3.png).
 
-        - Tải các thư viện phụ: SDL2_image, SDL2_ttf, SDL2_mixer.
+  - gamemap/: Chứa file bản đồ (map.dat) và các ô tile (1.png, 2.png, ..., 6.png).
 
-        - Cấu hình SDL2 trong Visual Studio:
+  - *.mp3, *.wav: Các file âm thanh (happy.mp3, bite.wav, explosion.wav).
 
-        - Thêm các file .lib vào thư mục dự án hoặc cấu hình trong Visual Studio (Properties > Linker > Input).
 
-        - Thêm đường dẫn đến các file header (.h) trong Properties > C/C++ > General > Additional Include Directories.
 
-        - Sao chép các file .dll (như SDL2.dll, SDL2_image.dll, v.v.) vào thư mục chứa file thực thi của dự án.
+##Danh sách file chính
 
-    2. Clone dự án từ Git
+  - MAIN.cpp: File chính, chứa vòng lặp game và logic chính.
 
-        - git clone https : //github.com/Dangcong26/ZOMBIE-TSUNAMI
+  - Player.cpp, Player.h: Quản lý nhân vật người chơi.
+
+  - Threats.cpp, Threats.h: Quản lý kẻ thù và đạn.
+
+  - Menu.cpp, Menu.h: Quản lý menu chính.
+
+  - Sound.h: Định nghĩa các biến âm thanh toàn cục.
+
+  - gamemap/map.dat: File bản đồ game.
+
+
+##Hướng dẫn cài đặt
+
+1. Cài đặt SDL2 và các thư viện liên quan
+
+    - Tải và cài đặt SDL2:
+
+    - Tải SDL2 từ trang chính thức.
+
+    - Tải các thư viện phụ: SDL2_image, SDL2_ttf, SDL2_mixer.
+
+    - Cấu hình SDL2 trong Visual Studio:
+
+    - Thêm các file .lib vào thư mục dự án hoặc cấu hình trong Visual Studio (Properties > Linker > Input).
+
+    - Thêm đường dẫn đến các file header (.h) trong Properties > C/C++ > General > Additional Include Directories.
+
+    - Sao chép các file .dll (như SDL2.dll, SDL2_image.dll, v.v.) vào thư mục chứa file thực thi của dự án.
+
+2. Clone dự án từ Git
+
+     - git clone https : <a href="//github.com/Dangcong26/ZOMBIE-TSUNAMI"><em>Game Play</em></a>
         
-        - link video review : https://drive.google.com/file/d/1E0A-bz_W57Wt63BMTJtnC8NkIgTsC2pD/view?usp=drive_link
+     - link video review : <a href="https://drive.google.com/file/d/1E0A-bz_W57Wt63BMTJtnC8NkIgTsC2pD/view?usp=drive_link"><em>Game Play</em></a>
 
-    3. Biên dịch và chạy
+4. Biên dịch và chạy
 
-        - Mở dự án trong Visual Studio bằng file SDL2GAME.vcxproj.
+     - Mở dự án trong Visual Studio bằng file SDL2GAME.vcxproj.
 
-        - Build dự án (F5 hoặc Build > Build Solution).
+     - Build dự án (F5 hoặc Build > Build Solution).
 
-        - Chạy game từ Visual Studio hoặc chạy file thực thi trong thư mục Debug/Release.
+     - Chạy game từ Visual Studio hoặc chạy file thực thi trong thư mục Debug/Release.
 
-        - Cách chơi
+     - Cách chơi
 
-        - Phím điều khiển:
+     - Phím điều khiển:
 
-        - Phím Mũi tên trái/phải: Di chuyển nhân vật sang trái/phải.
+     - Phím Mũi tên trái/phải: Di chuyển nhân vật sang trái/phải.
 
-        - Phím Space: Nhảy.
+     - Phím Space: Nhảy.
 
 Đóng góp
 
@@ -137,7 +151,7 @@ Hướng dẫn cài đặt
 
 Tác giả
 
-    Tên: Đặng Danh Công
+  Tên: Đặng Danh Công
 
-    Email: dcong2k6@gmail.com
+  Email: dcong2k6@gmail.com
 
