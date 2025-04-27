@@ -40,66 +40,55 @@ bool InitData() {
         SDL_WINDOW_SHOWN);
 
     if (g_window == NULL) {
-        SDL_Log("Window creation failed: %s", SDL_GetError());
         success = false;
     }
     else {
         g_screen = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED);
         if (g_screen == NULL) {
-            SDL_Log("Renderer creation failed: %s", SDL_GetError());
             success = false;
         }
         else {
             SDL_SetRenderDrawColor(g_screen, 255, 255, 255, 255);
             int imgFlags = IMG_INIT_PNG;
             if (!(IMG_Init(imgFlags) && imgFlags)) {
-                SDL_Log("IMG_Init failed: %s", IMG_GetError());
                 success = false;
             }
         }
 
         if (TTF_Init() == -1) {
-            SDL_Log("TTF_Init failed: %s", TTF_GetError());
             success = false;
         }
         font_brain = TTF_OpenFont("font.ttf", 15);
         if (font_brain == nullptr) {
-            SDL_Log("Failed to load font_brain: %s", TTF_GetError());
             success = false;
         }
 
         if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-            SDL_Log("SDL_mixer could not initialize! SDL_mixer Error: %s", Mix_GetError());
             success = false;
         }
 
         g_background_music = Mix_LoadMUS("happy.mp3");
         if (g_background_music == NULL) {
-            SDL_Log("Failed to load background music! SDL_mixer Error: %s", Mix_GetError());
             success = false;
         }
 
         g_bullet_hit_sound = Mix_LoadWAV("explosion.wav");
         if (g_bullet_hit_sound == NULL) {
-            SDL_Log("Failed to load bullet hit sound! SDL_mixer Error: %s", Mix_GetError());
             success = false;
         }
 
         g_eat_brain_sound = Mix_LoadWAV("bite.wav");
         if (g_eat_brain_sound == NULL) {
-            SDL_Log("Failed to load eat brain sound! SDL_mixer Error: %s", Mix_GetError());
             success = false;
         }
 
         g_hit_threat_sound = Mix_LoadWAV("bite.wav");
         if (g_hit_threat_sound == NULL) {
-            SDL_Log("Failed to load hit threat sound! SDL_mixer Error: %s", Mix_GetError());
             success = false;
         }
 
         g_hit_boom_sound = Mix_LoadWAV("explosion.wav");
         if (g_hit_boom_sound == NULL) {
-            SDL_Log("Failed to load hit boom sound! SDL_mixer Error: %s", Mix_GetError());
             success = false;
         }
     }
@@ -109,7 +98,6 @@ bool InitData() {
 bool LoadBackground() {
     bool ret = g_background.LoadImg("ZOMBIE TSUNAMI/Background1.png", g_screen);
     if (ret == false) {
-        SDL_Log("Failed to load game background: %s", SDL_GetError());
         return false;
     }
     return true;
@@ -172,24 +160,21 @@ int main(int argc, char* argv[]) {
     Time fps_time;
 
     if (!InitData()) {
-        SDL_Log("Initialization failed, exiting...");
         return -1;
     }
 
     if (!LoadBackground()) {
-        SDL_Log("Failed to load game background, exiting...");
         close();
         return -1;
     }
 
     Menu menu;
     if (!menu.LoadFont("font.ttf", 40)) {
-        SDL_Log("Failed to load menu font, exiting...");
         close();
         return -1;
     }
     if (!menu.LoadBackground("ZOMBIE TSUNAMI/menu_background.png", g_screen)) {
-        SDL_Log("Warning: Failed to load menu background, continuing with black background...");
+        return -1;
     }
 
     GameState game_state = GameState::MENU;
@@ -209,7 +194,6 @@ int main(int argc, char* argv[]) {
     Explosion exp_threat;
     bool tRet = exp_threat.LoadImg("Threats/exp3.png", g_screen);
     if (!tRet) {
-        SDL_Log("Failed to load threat explosion, exiting...");
         close();
         return -1;
     }
@@ -314,6 +298,7 @@ int main(int argc, char* argv[]) {
                     }
 
                     if (p_player.Get_Brain() == 0 || p_player.IsGameOver()) {
+                        SDL_FlushEvents(SDL_FIRSTEVENT, SDL_LASTEVENT);
                         game_state = GameState::MENU;
                         menu.Reset();
                         Mix_PauseMusic();
@@ -350,7 +335,7 @@ int main(int argc, char* argv[]) {
             string str_brain = to_string(current_brain);
             brain_game.SetText(str_brain);
             if (!brain_game.LoadFromRenderText(font_brain, g_screen)) {
-                SDL_Log("Failed to load brain text: %s", TTF_GetError());
+                return -1;
             }
             else {
                 brain_game.RenderText(g_screen, 10 + brain_text.GetWidth() + 5, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
