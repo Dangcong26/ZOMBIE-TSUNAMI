@@ -1,14 +1,14 @@
-#ZOMBIE TSUNAMI
+#  ZOMBIE TSUNAMI
 
 
-##Giới thiệu :
+## Giới thiệu :
 
 - Zombie Tsunami là một game 2D được phát triển bằng thư viện SDL2. Người chơi điều khiển một nhân vật zombie để vượt qua các chướng ngại vật, thu thập "brain", và tránh các mối nguy  hiểm như bom và đạn từ kẻ thù. Mục tiêu là sống sót càng lâu càng tốt và thu thập càng nhiều brain càng tốt.
 
 - Dự án này được thực hiện để học hỏi và áp dụng kỹ năng lập trình C++ và sử dụng SDL2 để phát triển game.
 
 
-##Tính năng :
+## Tính năng :
 
 - Điều khiển nhân vật zombie di chuyển (trái, phải) và nhảy (phím Space).
 
@@ -39,7 +39,7 @@
     
 
 
-##Mục tiêu:
+## Mục tiêu:
 
   - Thu thập "brain" để tăng điểm số.
 
@@ -48,12 +48,12 @@
   - Nếu số "brain" giảm về 0 hoặc nhân vật rơi khỏi bản đồ, game sẽ kết thúc và quay lại menu.  
 
 
-##Yêu cầu hệ thống
+## Yêu cầu hệ thống
 
   - Hệ điều hành: Windows (có thể mở rộng sang Linux/Mac nếu cài đặt SDL2 phù hợp).
 
 
-##Thư viện cần thiết:
+## Thư viện cần thiết:
 
   - SDL2
 
@@ -65,7 +65,7 @@
 
 
 
-##Công cụ phát triển:
+## Công cụ phát triển:
 
   - Visual Studio (hoặc bất kỳ IDE nào hỗ trợ C++).
 
@@ -74,7 +74,7 @@
   - Git (để quản lý mã nguồn).
 
 
-##Cấu trúc thư mục
+## Cấu trúc thư mục
 
   - ZOMBIE TSUNAMI/: Chứa hình ảnh nền và tài nguyên hình ảnh khác (Background1.png, menu_background.png).
 
@@ -88,7 +88,7 @@
 
 
 
-##Danh sách file chính
+## Danh sách file chính
 
   - MAIN.cpp: File chính, chứa vòng lặp game và logic chính.
 
@@ -103,7 +103,7 @@
   - gamemap/map.dat: File bản đồ game.
 
 
-##Hướng dẫn cài đặt
+## Hướng dẫn cài đặt
 
 1. Cài đặt SDL2 và các thư viện liên quan
 
@@ -123,9 +123,9 @@
 
 2. Clone dự án từ Git
 
-     - git clone https : <a href="//github.com/Dangcong26/ZOMBIE-TSUNAMI"><em>Game Play</em></a>
+     - git clone https : <a href="//github.com/Dangcong26/ZOMBIE-TSUNAMI"><em>Link Github</em></a>
         
-     - link video review : <a href="https://drive.google.com/file/d/1E0A-bz_W57Wt63BMTJtnC8NkIgTsC2pD/view?usp=drive_link"><em>Game Play</em></a>
+     - link video review : <a href="https://drive.google.com/file/d/1E0A-bz_W57Wt63BMTJtnC8NkIgTsC2pD/view?usp=drive_link"><em>Link Video</em></a>
 
 4. Biên dịch và chạy
 
@@ -143,13 +143,13 @@
 
      - Phím Space: Nhảy.
 
-Đóng góp
+## Đóng góp
 
  Nếu bạn muốn đóng góp cho dự án: Nếu bạn có ý tưởng hãy liên hệ với mình!
                                   Chân Thành Cảm Ơn !
 
 
-Tác giả
+## Tác giả
 
   Tên: Đặng Danh Công
 
