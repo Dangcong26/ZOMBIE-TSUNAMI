@@ -12,19 +12,13 @@ Tính năng
 
     - Điều khiển nhân vật zombie di chuyển (trái, phải) và nhảy (phím Space).
 
-        ![alt text](image.png)
+        <img src="ZOMBIE TSUNAMI/PLAYER.jpg" alt="ảnh nhân vật" width="30px">
 
     - Ăn quái và não cùng fly bõ để thu thập thật nhiều não
 
-        ![alt text](4.png)![alt text](6.png)
-
     - Tránh bom và đạn từ kẻ thù.
 
-        ![alt text](image-1.png)
-
     - Hiệu ứng nổ khi va chạm với bom.
-
-        ![alt text](5.png)![alt text](image-2.png)
 
     - Menu chính với tùy chọn bắt đầu game hoặc thoát.
 
@@ -115,7 +109,9 @@ Hướng dẫn cài đặt
 
     2. Clone dự án từ Git
 
-        - git clone https://github.com/Dangcong26/ZOMBIE-TSUNAMI
+        - git clone https : //github.com/Dangcong26/ZOMBIE-TSUNAMI
+        
+        - link video review : https://drive.google.com/file/d/1E0A-bz_W57Wt63BMTJtnC8NkIgTsC2pD/view?usp=drive_link
 
     3. Biên dịch và chạy
 
@@ -141,7 +137,7 @@ Hướng dẫn cài đặt
 
 Tác giả
 
-    Tên: Đặng Danh CôngCông
+    Tên: Đặng Danh Công
 
     Email: dcong2k6@gmail.com
 
