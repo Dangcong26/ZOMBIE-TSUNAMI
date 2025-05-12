@@ -34,14 +34,17 @@
 
 - Menu chính với tùy chọn bắt đầu game hoặc thoát.
   
-  <img src="ZOMBIE TSUNAMI/menudemo.png" alt="hiệu ứng vụ nổ" width="400px">
+  <img src="ZOMBIE TSUNAMI/menudemo.png" alt="hiệu ứng vụ nổ" width="500px">
   
-  <img src="ZOMBIE TSUNAMI/gamedemo.png" alt="hiệu ứng vụ nổ" width="400px">
+  <img src="ZOMBIE TSUNAMI/gamedemo.png" alt="hiệu ứng vụ nổ" width="500px">
 
 - Âm thanh nền và hiệu ứng âm thanh (nhạc nền, tiếng cắn, tiếng nổ).
 
     
+## Cách Chơi
 
+- Dùng 2 nút mũi tên trên bàm phím để di chuyển
+- Nhần SPACE để nhảy lên
 
 ## Mục tiêu:
 
