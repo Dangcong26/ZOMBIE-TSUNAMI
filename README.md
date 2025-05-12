@@ -12,31 +12,31 @@
 
 - Điều khiển nhân vật zombie di chuyển (trái, phải) và nhảy (phím Space).
 
-  <img src="ZOMBIE TSUNAMI/download.jpg" alt="ảnh nhân vật" width="60px">
+  <img src="ZOMBIE TSUNAMI/PLAYER.jpg" alt="ảnh nhân vật" width="100px">
 
 - Ăn quái và não cùng fly bõ để thu thập thật nhiều não
   
-  <img src="ZOMBIE TSUNAMI/download (2).jpg" alt="ảnh nhân vật" width="60px">
+  <img src="ZOMBIE TSUNAMI/threats.jpg" alt="ảnh nhân vật" width="100px">
 
-  <img src="ZOMBIE TSUNAMI/4.png" alt="ảnh nhân vật" width="60px">
+  <img src="ZOMBIE TSUNAMI/4.png" alt="ảnh nhân vật" width="100px">
 
-  <img src="ZOMBIE TSUNAMI/6.png" alt="ảnh nhân vật" width="60px">
+  <img src="ZOMBIE TSUNAMI/6.png" alt="ảnh nhân vật" width="100px">
 
 - Tránh bom và đạn từ kẻ thù.
   
-  <img src="Threats/Bullet.png" alt="đạn" width="60px">
+  <img src="Threats/Bullet.png" alt="đạn" width="100px">
   
-  <img src="ZOMBIE TSUNAMI/5.png" alt="BOOM" width="60px">
+  <img src="ZOMBIE TSUNAMI/5.png" alt="BOOM" width="100px">
 
 - Hiệu ứng nổ khi va chạm với bom.
 
-  <img src="ZOMBIE TSUNAMI/download (1).jpg" alt="hiệu ứng vụ nổ" width="60px">
+  <img src="ZOMBIE TSUNAMI/explosion.jpg" alt="hiệu ứng vụ nổ" width="100px">
 
 - Menu chính với tùy chọn bắt đầu game hoặc thoát.
   
-  <img src="ZOMBIE TSUNAMI/menudemo.png" alt="hiệu ứng vụ nổ" width="200px">
+  <img src="ZOMBIE TSUNAMI/menudemo.png" alt="hiệu ứng vụ nổ" width="400px">
   
-  <img src="ZOMBIE TSUNAMI/gamedemo.png" alt="hiệu ứng vụ nổ" width="200px">
+  <img src="ZOMBIE TSUNAMI/gamedemo.png" alt="hiệu ứng vụ nổ" width="400px">
 
 - Âm thanh nền và hiệu ứng âm thanh (nhạc nền, tiếng cắn, tiếng nổ).
 
@@ -129,7 +129,7 @@
 
      - git clone https : <a href="//github.com/Dangcong26/ZOMBIE-TSUNAMI"><em>Link Github</em></a>
         
-     - link video review : <a href="https://drive.google.com/file/d/1E0A-bz_W57Wt63BMTJtnC8NkIgTsC2pD/view?usp=drive_link"><em>Link Video</em></a>
+     - link video review : <a href="https://drive.google.com/file/d/1M5DMSVTZ1my-PWIF6DeZujWWYR4HfC38/view?usp=drive_link"><em>Link Video</em></a>
 
 4. Biên dịch và chạy
 
