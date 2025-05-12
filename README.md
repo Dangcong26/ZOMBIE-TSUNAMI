@@ -134,7 +134,7 @@
         
      - link video review : <a href="https://drive.google.com/file/d/1M5DMSVTZ1my-PWIF6DeZujWWYR4HfC38/view?usp=drive_link"><em>Link Video</em></a>
 
-4. Biên dịch và chạy
+3. Biên dịch và chạy
 
      - Mở dự án trong Visual Studio bằng file SDL2GAME.vcxproj.
 
@@ -142,13 +142,9 @@
 
      - Chạy game từ Visual Studio hoặc chạy file thực thi trong thư mục Debug/Release.
 
-     - Cách chơi
-
-     - Phím điều khiển:
-
-     - Phím Mũi tên trái/phải: Di chuyển nhân vật sang trái/phải.
-
-     - Phím Space: Nhảy.
+  ## Nguồn tham khảo
+   - Youtube : <a href="https://www.youtube.com/c/Ph%C3%A1tTri%E1%BB%83nPh%E1%BA%A7nM%E1%BB%81m123AZ"><em>Link Github</em></a>
+   - Grok AI : <a href="https://grok.com/?ref=aiartweekly"><em>Link Github</em></a>
 
 ## Đóng góp
 
