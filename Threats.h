@@ -4,6 +4,7 @@
 #include "include.h"
 #include "Base.h"
 #include "Bullet.h"
+#include "Player.h"
 
 #define THREAT_FRAME_NUM 8
 #define THREAT_GRAVITY_SPEED 0.8
@@ -79,8 +80,9 @@ public:
 		bullet_list_ = bl_list;
 	}
 	void InitBullet(Bullet* p_bullet, SDL_Renderer* screen);
-	void MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit);
+	void MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit, float player_x, float player_y);
 	void RemoveBullet(const int& idx);
+
 
 private:
 
@@ -105,6 +107,7 @@ private:
 	vector<Bullet*> bullet_list_;
 
 	int bullet_cooldown_;
+
 };
 
 #endif

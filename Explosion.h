@@ -28,8 +28,6 @@ private:
 	int frame_width_;
 	int frame_height_;
 
-	int curr_frame;
-
 	unsigned int frame_;
 	SDL_Rect frame_clip_[8];
 };

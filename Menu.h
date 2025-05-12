@@ -21,7 +21,7 @@ public:
     void Render(SDL_Renderer* screen);
     void HandleEvent(SDL_Event& e);
     int GetSelectedItem() const { return selected_item_; }
-    void Reset() { selected_item_ = 0; }
+    void Reset() { selected_item_ = 0; };
 
     bool IsMouseClickOnItem(int itemIndex, int mouseX, int mouseY);
 

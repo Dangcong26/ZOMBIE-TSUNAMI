@@ -344,8 +344,7 @@ void Player::CheckToMap(Map& map_data) {
     }
 
     if (y_pos_ > map_data.max_y_) {
-        is_game_over_ = true;
-        return;
+        brain = 0;
     }
 }
 

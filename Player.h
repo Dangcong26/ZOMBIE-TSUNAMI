@@ -59,7 +59,8 @@ public:
 		}
 	}
 
-	float Get_y_pos() const { return y_pos_; }
+	float Get_x_pos() const { return x_pos_;}
+	float Get_y_pos() const { return y_pos_;}
 
 	void InitSounds();
 	void PlayBulletHitSound();
@@ -71,6 +72,7 @@ public:
 
 	bool IsGameOver() const { return is_game_over_; }
 	void SetGameOver(bool game_over) { is_game_over_ = game_over; }
+
 
 private:
 	float x_val_;

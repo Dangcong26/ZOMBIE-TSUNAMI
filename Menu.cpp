@@ -21,7 +21,6 @@ Menu::~Menu() {
 bool Menu::LoadFont(const std::string& font_path, int font_size) {
     font_ = TTF_OpenFont(font_path.c_str(), font_size);
     if (font_ == nullptr) {
-        SDL_Log("Failed to load font: %s", TTF_GetError());
         return false;
     }
     return true;
@@ -30,7 +29,6 @@ bool Menu::LoadFont(const std::string& font_path, int font_size) {
 bool Menu::LoadBackground(const std::string& bg_path, SDL_Renderer* screen) {
     bool success = background_.LoadImg(bg_path.c_str(), screen);
     if (!success) {
-        SDL_Log("Failed to load menu background: %s", SDL_GetError());
         return false;
     }
     return true;
@@ -44,7 +42,7 @@ void Menu::Render(SDL_Renderer* screen) {
         background_.Render(screen, nullptr);
     }
     else {
-        SDL_Log("Warning: Menu background not loaded, using black background");
+        return;
     }
 
     if (menu_items_[START_GAME].GetText().empty()) {
@@ -52,7 +50,7 @@ void Menu::Render(SDL_Renderer* screen) {
         menu_items_[QUIT].SetText("QUIT");
     }
 
-    int start_y = (SCREEN_HEIGHT - (TOTAL_ITEMS * 100)) / 2;
+    int start_y = (SCREEN_HEIGHT - (TOTAL_ITEMS * 100)) / 2 + 200;
 
     for (int i = 0; i < TOTAL_ITEMS; i++) {
         if (i == selected_item_) {
@@ -63,7 +61,6 @@ void Menu::Render(SDL_Renderer* screen) {
         }
 
         if (!menu_items_[i].LoadFromRenderText(font_, screen)) {
-            SDL_Log("Failed to render menu item %d: %s", i, TTF_GetError());
             continue;
         }
 

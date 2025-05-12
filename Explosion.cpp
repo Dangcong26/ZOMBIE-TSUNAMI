@@ -4,11 +4,10 @@ Explosion::Explosion() {
 	frame_height_ = 0;
 	frame_width_ = 0;
 	frame_ = 0;
-	curr_frame = 1;
 }
 
 Explosion::~Explosion(){
-
+	Free();
 }
 
 bool Explosion::LoadImg(string path, SDL_Renderer* screen) {
@@ -23,17 +22,10 @@ bool Explosion::LoadImg(string path, SDL_Renderer* screen) {
 void Explosion::set_clip() {
 	if (frame_width_ > 0 && frame_height_ > 0) {
 		for (int i = 0; i < NUM_FRAME_EXP; i++) {
-			int x = 0;
-			while (x <= 1000) {
-				x++;
-				if (x == 1000) {
-					frame_clip_[i].x = i * frame_width_;
-					frame_clip_[i].y = 0;
-					frame_clip_[i].w = frame_width_;
-					frame_clip_[i].h = frame_height_;
-				}
-			}
-			x = 0;
+			frame_clip_[i].x = i * frame_width_;
+			frame_clip_[i].y = 0;
+			frame_clip_[i].w = frame_width_;
+			frame_clip_[i].h = frame_height_;
 		}
 	}
 }

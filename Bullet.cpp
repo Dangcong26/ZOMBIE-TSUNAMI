@@ -7,7 +7,7 @@ Bullet::Bullet() {
 }
 
 Bullet::~Bullet() {
-
+	Free();
 }
 
 void Bullet::HandleMove(const int& x_border, const int& y_border) {

@@ -28,7 +28,6 @@ bool InitData() {
     bool success = true;
     int ret = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     if (ret < 0) {
-        SDL_Log("SDL_Init failed: %s", SDL_GetError());
         return false;
     }
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
@@ -96,7 +95,7 @@ bool InitData() {
 }
 
 bool LoadBackground() {
-    bool ret = g_background.LoadImg("ZOMBIE TSUNAMI/Background1.png", g_screen);
+    bool ret = g_background.LoadImg("ZOMBIE TSUNAMI/Background.png", g_screen);
     if (ret == false) {
         return false;
     }
@@ -135,14 +134,14 @@ void close() {
 
 vector<Threats*> MakeThreatsList() {
     vector<Threats*> list_threats;
-    Threats* threats_objs = new Threats[10];
-    for (int i = 0; i < 10; i++) {
+    Threats* threats_objs = new Threats[12];
+    for (int i = 0; i < 12; i++) {
         Threats* p_threat = (threats_objs + i);
 
         if (p_threat != NULL) {
             p_threat->LoadImg("Threats/threat_left.png", g_screen);
             p_threat->set_clips();
-            p_threat->set_x_pos(1200 * i + 400);
+            p_threat->set_x_pos(1200 * i + 1200);
             p_threat->set_y_pos(200);
             p_threat->set_type_move(Threats::STATIC_THREAT);
             p_threat->set_input_left(0);
@@ -173,7 +172,7 @@ int main(int argc, char* argv[]) {
         close();
         return -1;
     }
-    if (!menu.LoadBackground("ZOMBIE TSUNAMI/menu_background.png", g_screen)) {
+    if (!menu.LoadBackground("ZOMBIE TSUNAMI/menu.png", g_screen)) {
         return -1;
     }
 
@@ -200,10 +199,10 @@ int main(int argc, char* argv[]) {
     exp_threat.set_clip();
 
     Text brain_game;
-    brain_game.SetColor(Text::BLACK_TEXT);
+    brain_game.SetColor(Text::WHITE_TEXT);
 
     Text brain_text;
-    brain_text.SetColor(Text::BLACK_TEXT);
+    brain_text.SetColor(Text::WHITE_TEXT);
     brain_text.SetText("BRAIN:");
 
     bool is_quit = false;
@@ -269,7 +268,7 @@ int main(int argc, char* argv[]) {
                     p_threat->ImpMoveType(g_screen);
                     p_threat->DoPlayer(map_data);
                     if (p_player.Get_Brain() != 0) {
-                        p_threat->MakeBullet(g_screen, SCREEN_WIDTH, SCREEN_HEIGHT);
+                        p_threat->MakeBullet(g_screen, SCREEN_WIDTH, SCREEN_HEIGHT, p_player.Get_x_pos(), p_player.Get_y_pos());
                     }
                     p_threat->Show(g_screen);
 
@@ -298,19 +297,24 @@ int main(int argc, char* argv[]) {
                     }
 
                     if (p_player.Get_Brain() == 0 || p_player.IsGameOver()) {
-                        SDL_FlushEvents(SDL_FIRSTEVENT, SDL_LASTEVENT);
-                        game_state = GameState::MENU;
-                        menu.Reset();
-                        Mix_PauseMusic();
+                        SDL_FlushEvents(SDL_FIRSTEVENT, SDL_LASTEVENT); 
+
+                        p_player.Reset();
                         for (int jj = 0; jj < (int)threats_list.size(); jj++) {
                             threats_list[jj]->Free();
                         }
                         threats_list.clear();
                         threats_list = MakeThreatsList();
-                        p_player.Reset(); 
-                        break;
-                    }
 
+                        game_map.LoadMap("gamemap/map.dat");
+                        game_map.LoadTiles(g_screen);
+
+                        game_state = GameState::MENU;
+                        menu.Reset();
+                        Mix_PauseMusic();
+
+                        continue;
+                    }
                     SDL_Rect rect_threat = p_threat->GetRectFrame();
                     bool bCol2 = SDLCommonFunc::CheckCollision(rect_player, rect_threat);
 
@@ -326,7 +330,7 @@ int main(int argc, char* argv[]) {
             int current_brain = p_player.Get_Brain();
 
             if (!brain_text.LoadFromRenderText(font_brain, g_screen)) {
-                SDL_Log("Failed to load brain label: %s", TTF_GetError());
+                return -1;
             }
             else {
                 brain_text.RenderText(g_screen, 10, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);

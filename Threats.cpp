@@ -238,43 +238,48 @@ void Threats::InitBullet(Bullet* p_bullet, SDL_Renderer* screen) {
 	}
 }
 
-void Threats::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit) {
-	bool has_active_bullet = false;
+void Threats::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit, float player_x, float player_y) {
 	for (int i = 0; i < (int)bullet_list_.size(); i++) {
 		Bullet* p_bullet = bullet_list_.at(i);
-		if (p_bullet != NULL) {
-			if (p_bullet->get_is_move()) {
-				int bullet_distance = x_pos_ - map_x_ - x_val_ + width_frame_ - p_bullet->GetRect().x;
-				if (bullet_distance <= 320 && bullet_distance > 0) {
-					p_bullet->HandleMove(x_limit, y_limit);
-					p_bullet->Render(screen);
-				}
-				else {
-					p_bullet->set_is_move(false);
-				}
-			}
-			else {
-				p_bullet->set_is_move(true);
-				p_bullet->SetRect(x_pos_ - map_x_ + 5, y_pos_ - map_y_ + 10);
+		if (p_bullet != NULL && p_bullet->get_is_move()) {
+			p_bullet->HandleMove(x_limit, y_limit);
+			p_bullet->Render(screen);
+
+			SDL_Rect bullet_rect = p_bullet->GetRect();
+			if (bullet_rect.x < 0 || bullet_rect.x > x_limit ||
+				bullet_rect.y < 0 || bullet_rect.y > y_limit) {
+				p_bullet->set_is_move(false);
 			}
 		}
 	}
+
 	if (bullet_cooldown_ > 0) {
 		bullet_cooldown_--;
 	}
-	if (!has_active_bullet && bullet_cooldown_ <= 0) {
-		for (int i = 0; i < (int)bullet_list_.size(); i++) {
+	else {
+		for (int i = 0; i < (int)bullet_list_.size(); ) {
 			Bullet* p_bullet = bullet_list_.at(i);
-			if (p_bullet) {
-				delete p_bullet;
-				p_bullet = NULL;
+			if (p_bullet && !p_bullet->get_is_move()) {
+				RemoveBullet(i);
+			}
+			else {
+				i++;
 			}
 		}
-		bullet_list_.clear();
 
-		Bullet* new_bullet = new Bullet();
-		InitBullet(new_bullet, screen);
-		bullet_cooldown_ = 60;
+		bool has_active_bullet = false;
+		for (int i = 0; i < (int)bullet_list_.size(); i++) {
+			if (bullet_list_.at(i)->get_is_move()) {
+				has_active_bullet = true;
+				break;
+			}
+		}
+
+		if (!has_active_bullet) {
+			Bullet* new_bullet = new Bullet();
+			InitBullet(new_bullet, screen);
+			bullet_cooldown_ = 60; 
+		}
 	}
 }
 
