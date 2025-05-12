@@ -34,9 +34,11 @@
 
 - Menu chính với tùy chọn bắt đầu game hoặc thoát.
   
-  <img src="ZOMBIE TSUNAMI/menudemo.png" alt="hiệu ứng vụ nổ" width="800px">
+  <img src="ZOMBIE TSUNAMI/menudemo.png" alt="hiệu ứng vụ nổ" width="1000px">
+
+- Giao diện trong game
   
-  <img src="ZOMBIE TSUNAMI/gamedemo.png" alt="hiệu ứng vụ nổ" width="800px">
+  <img src="ZOMBIE TSUNAMI/gamedemo.png" alt="hiệu ứng vụ nổ" width="1000px">
 
 - Âm thanh nền và hiệu ứng âm thanh (nhạc nền, tiếng cắn, tiếng nổ).
 
